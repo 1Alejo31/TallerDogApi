@@ -14,9 +14,7 @@ class RetroFitGeneration {
     companion object{
 
         //Retorna el retrofit que permite crear las clases
-        fun getInstance() {
-
-            //Proceso de login
+        fun getInstance(): Retrofit {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             val okHttpClient = OkHttpClient.Builder()
@@ -29,13 +27,12 @@ class RetroFitGeneration {
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssX")
                 .create()
 
-            val retrofit = Retrofit.Builder()
+            return Retrofit.Builder()
                 .baseUrl("https://dog.ceo/api/")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build()
-
         }
 
     }
